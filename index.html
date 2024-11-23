@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Quick Links</title>
+      <link rel="stylesheet" type="text/css" href="style.css">
+   </head>
+   <body>
+      <div class="container">
+         <h1>Frequently Used Shortcuts</h1>
+         <input id="search" type="text" placeholder="Search links..." oninput="filterLinks()" />
+         <div class="actions">
+            <div class="form-section">
+               <h3>Add a New Link</h3>
+               <div class="form-group">
+                  <input id="new-title" type="text" placeholder="Title" required>
+                  <input id="new-url" type="url" placeholder="URL" required>
+                  <select id="new-category">
+                     <option value="" disabled selected>Select category</option>
+                  </select>
+                  <button onclick="addLink()">Add Link</button>
+               </div>
+            </div>
+            <div class="form-section">
+               <h3>Add Category</h3>
+               <div class="form-group">
+                  <input id="new-category-name" type="text" placeholder="Category name" required>
+                  <button onclick="addCategory()">Add Category</button>
+               </div>
+            </div>
+         </div>
+         <div class="json-buttons">
+            <button onclick="exportToJSON()">Export to JSON</button>
+            <input id="import-json" type="file" accept=".json" onchange="importFromJSON()" style="display: none;">
+            <button onclick="document.getElementById('import-json').click()">Import JSON</button>
+         </div>
+         <div class="categories-grid" id="categories"></div>
+      </div>
+      <div id="theme-selector">
+         <label for="theme">Theme: </label>
+         <select id="theme" onchange="applyTheme(this.value)">
+            <option value="default">Catppuccin</option>
+            <option value="tokyodark">Tokyodark</option>
+            <option value="gruvbox">Gruvbox</option>
+         </select>
+         <button onclick="toggleThemeEditor()">Edit Themes</button>
+      </div>
+      <div id="theme-editor">
+         <h4>Edit/Add Theme</h4>
+         <input id="theme-name" placeholder="Theme Name" />
+         <textarea id="theme-vars" placeholder="--bg: #11121d;\n--fg: #a9b1d6;\n--accent: #7aa2f7;"></textarea>
+         <button onclick="saveTheme()">Save Theme</button>
+         <button onclick="importThemes()">Import Themes</button>
+         <button onclick="exportThemes()">Export Themes</button>
+         <button onclick="toggleDeleteTheme()">Delete Theme</button>
+         <button onclick="closeThemeEditor()">Close</button>
+         <input id="import-file" type="file" accept=".json" style="display: none;" onchange="loadThemesFromFile(event)" />
+         <select id="delete-theme" style="display: none;" onchange="deleteTheme(this.value)">
+            <option value="" disabled selected>Delete a Theme</option>
+         </select>
+      </div>
+      <script src="script.js"></script>
+   </body>
+</html>

@@ -278,12 +278,16 @@ function applyTheme(themeName) {
 }
 
 function toggleThemeEditor() {
-    document.getElementById("theme-editor").style.display = "block";
+    const editor = document.getElementById("theme-editor");
+    editor.style.display = "flex";
+    setTimeout(() => editor.classList.add("visible"), 10);
     updateDeleteThemeDropdown();
 }
 
 function closeThemeEditor() {
-    document.getElementById("theme-editor").style.display = "none";
+    const editor = document.getElementById("theme-editor");
+    editor.classList.remove("visible");
+    setTimeout(() => editor.style.display = "none", 300);
 }
 
 function saveTheme() {

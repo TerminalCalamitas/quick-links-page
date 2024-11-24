@@ -1,57 +1,93 @@
 /* Theme Selector and Editor Styles */
-#theme-selector,
-#theme-editor {
-position: fixed;
-bottom: 10px;
-right: 10px;
-background: var(--section-bg);
-color: var(--fg);
-border: 1px solid var(--border);
-border-radius: 8px;
-padding: 10px;
-font-size: 0.9rem;
-z-index: 1000;
-box-shadow: 0px 4px 6px var(--shadow);
+
+/* Keeping things on the same line is a lot easier on the eyes 
+Also, make sure you tab out your css. Not sure what IDE you use, but I recommend VSCode/Cursor
+But yes I can tell you did these ids at the top after you made everything else.*/
+#theme-selector, #theme-editor {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: var(--section-bg);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 0.9rem;
+    z-index: 1000;
+    box-shadow: 0px 4px 6px var(--shadow);
 }
 
 #theme-editor {
-display: none;
-/* Hidden by default */
-flex-direction: column;
-gap: 5px;
-max-width: 400px;
-padding: 15px;
+    position: fixed;
+    bottom: -100%;  /* Start position off-screen */
+    right: 10px;
+    background: var(--section-bg);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 0.9rem;
+    z-index: 1000;
+    box-shadow: 0px 4px 6px var(--shadow);
+    flex-direction: column;
+    gap: 5px;
+    max-width: 400px;
+    transition: bottom 0.3s ease-in-out;
 }
 
-#theme-editor input,
-#theme-editor textarea,
-#theme-editor button,
-#delete-theme {
-display;
-block;
-margin: auto;
-width: 100%;
-font-size: 0.9rem;
-margin-bottom: 10px;
+#theme-editor.visible {
+    bottom: 10px;  /* End position */
+}
+
+#theme-editor input, #theme-editor textarea, #theme-editor button, #delete-theme {
+    display: block; /* Just a typo fix right here, but block is default in divs as well */
+    margin: auto;
+    width: 100%;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    margin-left: 2px;
 }
 
 #theme-editor textarea {
-height: 150px;
-/* Larger for easier editing */
-width: 100%;
-margin 0 auto;
-font-family: monospace;
-resize: vertical;
+    height: 150px;
+    /* Larger for easier editing */
+    width: 100%;
+    margin: 0 auto; /* Forgot your colon */
+    font-family: monospace;
+    resize: vertical;
+    background: var(--input-bg);
+    color: var(--fg);
+    border-radius: 4px;
+    transition: background 0.1s ease;
+    margin-bottom: 10px;
 }
 
-html,
-body {
+/* Moving this up to the top with the other ids */
+#search {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: 0px 2px 4px var(--shadow);
+    margin-bottom: 20px;
+}
+
+/* Adding a hover effect to the search bar */
+#search:hover {
+    background: var(--button-bg);
+}
+
+/* I'm not sure how you like to organize (not that I organize at all) but grouping things together, like buttons, can be easier when you have to go back later.*/
+
+/* Containers */
+html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     background-color: var(--bg);
     color: var(--fg);
     font-family: Arial, sans-serif;
+    margin-right: 12px;
 }
 
 .container {
@@ -60,6 +96,53 @@ body {
     padding: 10px;
 }
 
+.actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form-section {
+    flex: 1;
+    background: var(--section-bg);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px var(--shadow);
+}
+
+.section {
+    background: var(--section-bg);
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px var(--shadow);
+    display: inline-block;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+.categories-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+    width: auto;
+}
+
+.link-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+    transition: all 0.3s ease;
+}
+
+
+/* Text modifications */
 h1 {
     text-align: center;
     color: var(--accent);
@@ -79,21 +162,6 @@ h4 {
     margin-bottom: 15px;
 }
 
-.actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.form-section {
-    flex: 1;
-    background: var(--section-bg);
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px var(--shadow);
-}
-
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -101,71 +169,24 @@ h4 {
     cursor: pointer;
     font-weight: bold;
     position: relative;
-    padding-right: -10px;
 }
 
-.section-header:collapsed {
-    allign-items: right;
-}
-
-.section-header:hover {
-    background: var(--button-bg);
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.json-buttons {
-    margin-bottom: 10px;
-}
-
-.category-buttons {
-    margin-right: 0px;
-}
-
-.categories-grid {
-    display: grid;
-    gap: 10px;
-}
-
-
-.section {
-    background: var(--section-bg);
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px var(--shadow);
-    display: inline-block;
-    flex-direction: column;
-    overflow: hidden;
-    /* Prevent content overflow */
-    transition: height 0.3s ease;
-    /* Smooth height changes */
-}
-
-.section:active {
-    background-color: #e9e9e9;
+.section-header.collapsed {
+    transition: all 0.3s ease;
 }
 
 .links {
     margin-top: 10px;
     overflow: hidden;
-    display: none;
-    /* Start collapsed */
-    transition: height 0.3s ease;
-    /* Smooth expand/collapse animation */
+    max-height: 500px;
+    opacity: 1;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-.links.expanded {
-    display: block;
-    /* Automatically size to fit content when expanded */
-}
-
-.link-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 8px 0;
+.links:not(.expanded) {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
 }
 
 .link-item a {
@@ -175,10 +196,16 @@ h4 {
     transition: color 0.3s;
 }
 
-.link-item a:hover {
-    color: var(--link-hover);
+textarea {
+    background: var(--input-bg);
+    color: var(--fg);
+    border-radius: 4px;
+    transition: background 0.1s ease;
+
 }
 
+
+/* Buttons and Inputs */
 button {
     background: var(--button-bg);
     color: var(--fg);
@@ -187,6 +214,16 @@ button {
     padding: 5px;
     cursor: pointer;
     margin-left: 5px;
+    transition: background 0.1s ease;
+}
+
+input, select {
+    background: var(--input-bg);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px;
+    transition: background 0.1s ease;
 }
 
 button:first-of-type {
@@ -198,29 +235,66 @@ button:hover {
     color: var(--bg);
 }
 
-input,
-select {
-    background: var(--input-bg);
-    color: var(--fg);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 2px;
+.category-buttons {
+    margin-right: 0px;
 }
 
-.form-group {
+.json-buttons {
     margin-bottom: 10px;
-    width: auto;
 }
 
-#search {
-width: 100%;
-padding: 10px;
-border-radius: 8px;
-border: 1px solid var(--border);
-box-shadow: 0px 2px 4px var(--shadow);
-margin-bottom: 20px;
+.form-group button {
+    margin-top: 10px;
 }
 
+
+/* Hover events */
+.section-header:hover {
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.section:hover:not(:has(.links.expanded)) {
+    background: var(--button-bg);
+    transition: background 0.1s ease;
+}
+
+.link-item a:hover {
+    color: var(--link-hover);
+}
+
+/* Hover effect for inputs */
+input:hover, input:focus, input:active {
+    background: var(--button-bg);
+    transition: background 0.1s ease;
+    outline: none;
+}
+
+textarea:hover, textarea:focus, textarea:active {
+    background: var(--button-bg);
+    transition: background 0.1s ease;
+    outline: none;
+}
+
+
+/* Active AND FOCUS events */
+
+/* don't recommend creating a static background color when you have multiple themes. */
+
+
+/* Expanded and Collapsed section */
+.section-header:collapsed {
+    align-items: right; /* Just a typo fix right here, but align-items is correct */
+}
+
+.links.expanded {
+    display: block;
+    /* Automatically size to fit content when expanded */
+}
+
+/* Shadows */
 .shadow {
     box-shadow: 0px 4px 6px var(--shadow);
     /* Define shadow for boxes */
